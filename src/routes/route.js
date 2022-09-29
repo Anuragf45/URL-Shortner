@@ -1,7 +1,7 @@
 
 const express = require('express')
 const router = express.Router()
-const {shortUrl}= require('../controllers/urlController')
+const {shortUrl,getShortUrl}= require('../controllers/urlController')
 
 
 router.get('/testme',(req,res)=>{
@@ -11,5 +11,7 @@ router.get('/testme',(req,res)=>{
 
 
 router.post('/url/shorten',shortUrl)
+
+router.get('/:urlCode',getShortUrl)
 
 module.exports = router
