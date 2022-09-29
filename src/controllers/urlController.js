@@ -1,6 +1,7 @@
 const urlModel = require('../models/urlModel')
 const shortid = require('shortid');
 const isvalidUrl = require('valid-url')
+const{isValidUrl} = require('../utils/validation')
 
 
 
@@ -17,18 +18,11 @@ try {
     if(Object.keys.length ==0 )
     return res.status(400).send({status:false,message:"body cant be Empty"})
 
-    
-if(!longUrl)
-return res.status(400).send({status:false,message:"longUrl is required"})
+     if(!longUrl)
+    return res.status(400).send({status:false,message:"longUrl is required"})
 
-
-const validURl = (longUrl) => {
-    const regx = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/.test(longUrl)
-    return regx
-};
-
-if(!validURl(longUrl))
-return res.status(401).send({status:false,message:"your long-Url is invalid "})
+    if(!isValidUrl(longUrl))
+    return res.status(401).send({status:false,message:"your long-Url is invalid "})
 
 
     let urlcode= shortid.generate() 
