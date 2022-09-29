@@ -8,7 +8,7 @@ const shortUrl = async(req,res)=>{
 try {
     
 } catch (error) {
-    res.status()
+    res.status(500).send({status:false,message:error.message})
 }
    const data = req.body
 
