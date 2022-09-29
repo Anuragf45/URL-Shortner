@@ -7,16 +7,24 @@ const shortUrl = async(req,res)=>{
 
 try {
 
-    const data = req.body
+    const datas = req.body
+    let{longUrl} = datas
+  
 
+    if(Object.keys.length ==0 )
+    return res.status(400).send({status:false,message:"body cant be Empty"})
+
+    
+if(!longUrl)
+return res.status(400).send({status:false,message:"longUrl is required"})
 
     let urlcode= shortid.generate() 
-      data.urlCode = urlcode
+    datas.urlCode = urlcode
   
       let shortUrl = baseUrl + '/'+ urlcode
-      data.shortUrl = shortUrl
+      datas.shortUrl = shortUrl
   
-    let result = await urlModel.create(data)
+    let result = await urlModel.create(datas)
   
     let finaldata = await urlModel.findById(result._id).select({createdAt:0,updatedAt:0,__v:0})
    
