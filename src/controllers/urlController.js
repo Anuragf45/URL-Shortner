@@ -24,7 +24,9 @@ try {
     if(!isValidUrl(longUrl))
     return res.status(401).send({status:false,message:"your long-Url is invalid "})
 
-
+    let uniqueUrl = await urlModel.findOne({longUrl:longUrl}).select({createdAt:0,updatedAt:0,__v:0,_id:0})
+   if(uniqueUrl)
+   return res.status(200).send()
 
     let urlcode= shortid.generate() 
     datas.urlCode = urlcode
