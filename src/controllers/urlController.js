@@ -25,23 +25,23 @@ try {
     return res.status(401).send({status:false,message:"your long-Url is invalid "})
 
 
+
     let urlcode= shortid.generate() 
     datas.urlCode = urlcode
   
       let shortUrl = baseUrl + '/'+ urlcode
       datas.shortUrl = shortUrl
   
-    let result = await urlModel.create(datas)
+    await urlModel.create(datas)
   
-    let finaldata = await urlModel.findById(result._id).select({createdAt:0,updatedAt:0,__v:0})
-   
+    let finaldata = await urlModel.findOne({urlCode:urlcode}).select({createdAt:0,updatedAt:0,__v:0,_id:0})
+
+
      res.status(201).send({status:true,data:finaldata})
     
 } catch (error) {
     res.status(500).send({status:false,message:error.message})
 }}
-
-
 
 
 
