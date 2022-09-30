@@ -56,9 +56,10 @@ const getShortUrl = async(req,res)=>{
     
 
 const finalData = await urlModel.findOne({urlCode:data}).select({longUrl:1,_id:0})
-   
+//    if(!finalData)
+//    return res.status(404).send({status:false,message:`This Url {} not Found`})
               
-    res.status(301).send({status:true,data:finalData})
+    res.status(200).send({status:true,data:finalData})
 
    } catch (error) {
     res.status(500).send({status:false,message:error.message})
