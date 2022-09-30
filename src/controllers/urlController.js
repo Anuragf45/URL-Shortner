@@ -52,12 +52,21 @@ try {
 const getShortUrl = async(req,res)=>{
    try {
     
-    let data = req.params.urlCode
+    let urlCode = req.params.urlCode
     
 
-const finalData = await urlModel.findOne({urlCode:data}).select({longUrl:1,_id:0})
-           
-    res.status(301).redirect(finalData.longUrl);
+
+const finalData = await urlModel.findOne({urlCode:urlCode})
+  
+
+if(!finalData)
+return res.status(404).send({status:false,message:`This UrlCode-${urlCode} Not found`})
+
+
+   return res.status(302).redirect(finalData.longUrl)
+
+
+
 
    } catch (error) {
     res.status(500).send({status:false,message:error.message})
