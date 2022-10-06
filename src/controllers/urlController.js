@@ -54,19 +54,12 @@ const getShortUrl = async(req,res)=>{
     
     let urlCode = req.params.urlCode
     
-
-
-const finalData = await urlModel.findOne({urlCode:urlCode})
+  const finalData = await urlModel.findOne({urlCode:urlCode})
   
+  if(!finalData)
+    return res.status(404).send({status:false,message:`This UrlCode-${urlCode} Not found`})
 
-if(!finalData)
-return res.status(404).send({status:false,message:`This UrlCode-${urlCode} Not found`})
-
-
-   return res.status(302).redirect(finalData.longUrl)
-
-
-
+    return res.status(302).redirect(finalData.longUrl)
 
    } catch (error) {
     res.status(500).send({status:false,message:error.message})
